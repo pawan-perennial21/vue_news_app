@@ -1,132 +1,71 @@
 <template>
-    <!-- <div class="drop-down">
-        <DropDown
-            :options="dropdownOptions"
-            @selected="handleSelected"
-        ></DropDown>
-    </div> -->
-    <div class="search-container">
-        <div class="search-bar">
-            <DropDown
-                :options="countryList"
-                v-model="selectedOption"
-                placeholder="Choose a option"
-                defaultVal="Choose country"
-                :showSearchBar="true"
-            />
-            <DropDown
-                :options="CategoryOptions"
-                defaultVal="Choose category"
-                v-model="selectedCategory"
-                placeholder="Choose category"
-            />
-            <!-- <input
-                type="text"
-                placeholder="keywords (optional)"
-                v-model="textInputMessage"
-                class="search-inputbox"
-            /> -->
-            <Input
-                v-model="textInputMessage"
-                placeholder="Search..."
-            />
+    <div class="search-conatiner">
+        <div class="dropdown-boxes">
+            <div class="country-list">
+                <select
+                    class="select-style"
+                    name="country"
+                    v-model="SearchCountry"
+                >
+                    <option value="">Select Country</option>
+                    <option
+                        v-for="(list, key) in countryList"
+                        :value="list"
+                        :key="key"
+                        :selected="
+                            key == SearchCountry ? true : false
+                        "
+                    >
+                        {{ list }}
+                    </option>
+                </select>
+            </div>
+            <div class="category-list">
+                <select
+                    class="select-style"
+                    name="category"
+                    v-model="SearchCategory"
+                >
+                    <option value="">Select Category</option>
+                    <option
+                        :value="list"
+                        v-for="(list, key) in categoryData"
+                        :key="key"
+                    >
+                        {{ list }}
+                    </option>
+                </select>
+            </div>
+            <div class="keywords-input">
+                <input
+                    class="select-style setbox-input"
+                    type="text"
+                    placeholder="keywords (optional)"
+                    v-model="SearchQuery"
+                />
+            </div>
         </div>
-        <div class="search-reset-btn">
-            <!-- <button
-                class="search-button search"
-                @click="handleSearch()"
-            ></button> -->
-            <img
-                src="../assets/search.png"
-                @click="handleSearch()"
-                class="search-button"
-            />
-        </div>
-        <div>
-            <img
-                src="../assets/arrows-circle.png"
-                class="reset-button"
-                @click="handleReset()"
-            />
+        <div class="search-btn">
+            <button class="cta-btn" @click="handelSearch">
+                Search
+            </button>
         </div>
     </div>
 </template>
-
 <script>
-import DropDown from "./DropDown.vue";
-import Input from "./Input.vue";
 import countries from "../utils/index.json";
-import { mapActions } from "vuex";
+import { categories } from "../utils/category.json";
 export default {
-    components: {
-        DropDown,
-        Input,
-    },
     data() {
         return {
-            textInputMessage: this.$store.state.textInputMessage,
-            selectedOption: this.$store.state.selectedCountry,
-            selectedCategory: this.$store.state.selectedCategory,
+            countryData: countries,
+            categoryData: categories,
+            SearchQuery: "",
+            SearchCountry: "",
+            SearchCategory: "",
         };
     },
-    methods: {
-        ...mapActions(["fetchTopHeading", "getNewsList"]),
-        handleSelected(option) {
-            console.log("Selected:", option);
-            // You can perform any additional actions when an option is selected
-        },
-
-        handleSearch() {
-            if (
-                this.textInputMessage == "" &&
-                this.selectedOption == "" &&
-                this.selectedCategory == ""
-            ) {
-                this.getNewsList();
-            } else {
-                this.fetchTopHeading({
-                    country: this.selectedOption,
-                    category: this.selectedCategory,
-                    keyword: this.textInputMessage,
-                });
-            }
-        },
-        handleReset() {
-            this.selectedOption = "";
-            this.textInputMessage = "";
-            this.selectedCategory = "";
-        },
-    },
-    watch: {
-        textInputMessage() {
-            this.$store.commit(
-                "setTextInputMessage",
-                this.textInputMessage
-            );
-        },
-        selectedOption() {
-            this.$store.commit(
-                "setSelectedOption",
-                this.selectedOption
-            );
-        },
-        selectedCategory() {
-            this.$store.commit(
-                "setSelectedCategory",
-                this.selectedCategory
-            );
-        },
-    },
-
     computed: {
-        filteredItems() {
-            // Filter items based on the search query
-            return this.items.filter((item) =>
-                item.name
-                    .toLowerCase()
-                    .includes(this.searchQuery.toLowerCase())
-            );
-        },
         countryList() {
             let countryNamelist = countries.map(
                 (country) => country.name
@@ -134,44 +73,62 @@ export default {
             return countryNamelist;
         },
     },
+    methods: {
+        handelSearch() {
+            const payload = {
+                searchQuery: this.SearchQuery,
+                searchCountry: this.SearchCountry,
+                searchCategory: this.SearchCategory,
+            };
+            console.log("payload",payload)
+            this.$store.dispatch("updatePageSize", 21);
+            this.$emit("getSearchParams", payload);
+        },
+    },
 };
 </script>
 
-<style scoped>
-.search-container {
-    padding: 4px 10%;
+<style>
+.search-conatiner {
+    width: 100%;
+    /* height: 80px; */
+    padding: 20px;
+    background: gray;
     display: flex;
-    gap: 0;
     justify-content: center;
-    background: #61677a;
-}
-.search-bar {
-    display: flex;
     align-items: center;
+    gap: 20px;
 }
-.search-reset-btn {
+.dropdown-boxes {
     display: flex;
-    align-items: center;
-    position: relative;
+    align-content: center;
+    gap: 20px;
 }
-.search-button {
-    /* background-color: #333; */
-    position: absolute;
-    /* padding: 2px; */
+select,
+input {
+    width: 200px;
+    height: 35px;
+    padding: 5px 15px;
     border: none;
-    top: 23px;
-    right: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    height: 22px;
-    width: 22px;
+    outline: none;
+    border-radius: 8px;
 }
-.reset-button {
-    position: relative;
-    height: 22px;
-    width: 22px;
-    top: 20px;
-    left: 10px;
-    cursor: pointer;
+.cta-btn {
+    width: 100px;
+    height: 35px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .search-conatiner {
+        display: flex;
+        flex-direction: column;
+    }
+    .dropdown-boxes {
+        display: flex;
+        flex-direction: column;
+    }
 }
 </style>

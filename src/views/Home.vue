@@ -1,38 +1,97 @@
 <template>
+        <NoRecord v-if="getNewsList?.length === 0" />
     <div class="news-list">
         <div v-for="news in newsList" :key="news.id">
-            <!-- <router-link :to="'/news-details/' + news.id"> -->
-                <NewsCard
-                    :title="news.title"
-                    :description="news.description"
-                    :imageSrc="news.urlToImage"
-                    isBookmarked="true"
-                    :newsId="news.id"
-                />
-            <!-- </router-link> -->
+            <NewsCard
+                :title="news.title"
+                :description="news.description"
+                :imageSrc="news.urlToImage"
+                :newsId="news.id"
+                :website="news.url"
+                :content="news.content"
+                :publishDate="news.publishedAt"
+                @bookmark="bookmark(news.id)"
+                @deleteBookmark="deleteBookMark(news.id)"
+                :isBookmarked="!news.isBookmarked"
+            />
         </div>
     </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 import NewsCard from "../components/NewsCard.vue";
+import NoRecord from "../components/NoRecord.vue"
 export default {
     components: {
+        NoRecord,
         NewsCard,
     },
     computed: {
         ...mapState({
             newsList: (state) => state.newsLists,
         }),
-        ...mapGetters(['getNewsList'])
+        ...mapGetters([
+            "getNewsList",
+            "getTotalResults",
+            "getPageCount",
+        ]),
+        totalResults() {
+            return this.getTotalResults;
+        },
+        getArticleLength() {
+            return this.articles.length == 0;
+        },
     },
-    mounted () {
-        console.log('>>>>>>>>>>>>>>>>>', this.getNewsList)
+    mounted() {
+        this.scroll();
     },
     methods: {
+        ...mapMutations["update"],
+        bookmark(id) {
+            this.$store.commit("updateBookmark", id);
+        },
+
+        deleteBookMark(id) {
+            this.$store.commit("updateDeleteBookmark", id);
+        },
         async getNewsListData() {
-            await this.$store.dispatch("getNewsList");
+            await this.$store.dispatch("fetchAllData");
+        },
+        getSearchParams(payload) {
+            console.log("getSearchParams", payload);
+            this.extraParams = payload;
+            this.$store.dispatch("fetchAllData", this.extraParams);
+        },
+        async fetch() {
+            this.$store.dispatch("fetchAllData", this.extraParams);
+        },
+
+        setDisableButton() {
+            return (
+                this.getArticles.length < this.$store.state.totalCard
+            );
+        },
+        scroll() {
+            window.onscroll = () => {
+                let bottomOfWindow =
+                    Math.ceil(
+                        document.documentElement.scrollTop +
+                            window.innerHeight
+                    ) >= document.documentElement.offsetHeight;
+                if (bottomOfWindow) {
+                    console.log("called");
+                    const currentpage = this.getPageCount + 21;
+                    this.$store.dispatch(
+                        "updatePageSize",
+                        currentpage
+                    );
+                    this.$store.dispatch(
+                        "fetchAllData",
+                        this.extraParams
+                    );
+                }
+            };
         },
     },
     async created() {

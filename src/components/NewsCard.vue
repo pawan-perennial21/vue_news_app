@@ -1,29 +1,71 @@
 <template>
     <div class="news-card">
-        <img
-            class="news-image"
-            :src="getNewsImg(imageSrc)"
-            alt="News Image"
-        />
-        <h2 class="news-title">{{ title }}</h2>
-        <p class="news-description">{{ description }}</p>
+        <div class="news-img">
+            <img
+                class="news-image"
+                :src="getNewsImg(imageSrc)"
+                alt="News Image"
+            />
+        </div>
+        <div class="news-content">
+            <h3 class="news-headline">{{ title }}</h3>
+            <h4 class="web-link">{{ getWebsiteLink(website) }}</h4>
+            <p class="sub-content">
+                {{ content }}
+            </p>
+        </div>
+        <div class="publish-date">
+            <p>Published : {{ formatArticleDate(publishDate) }}</p>
+        </div>
         <div class="news-footer">
-            <button class="btn" @click="goToPage">Go to Page</button>
-            <button class="btn" @click="toggleBookmark">
-                {{ isBookmarked ? "Remove Bookmark" : "Bookmark" }}
-            </button>
+            <div
+                @click="$emit('bookmark')"
+                v-if="isBookmarked"
+                class="delete-bookmark"
+            >
+                Add Bookmark
+            </div>
+            <div
+                v-else
+                @click="$emit('bookmark')"
+                class="delete-bookmark"
+            >
+                Remove Bookmark
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import { getPublishDate } from "@/helper";
+import { mapActions } from "vuex";
 export default {
+    data() {
+        return {
+            allBookMark: [],
+        };
+    },
     props: {
         title: String,
         description: String,
         imageSrc: String,
         isBookmarked: Boolean,
         newsId: Number,
+        website: String,
+        content: String,
+        publishDate: String,
+        // article: {
+        //     type: Object,
+        //     default: () => ({
+        //         id: "",
+        //         title: "",
+        //         content: "",
+        //         imgSrc: "",
+        //         publishDate: "",
+        //         website: "",
+        //         save: true,
+        //     }),
+        // },
     },
 
     // data() {
@@ -33,11 +75,12 @@ export default {
     // },
 
     methods: {
+        ...mapActions(["fetchBookMarks"]),
         getNewsImg(img) {
+            console.log("image",img)
             return img ?? "https://dummyimage.com/600x400/000/fff";
         },
         goToPage() {
-            console.log(">>>>>>>>>>>>>>>>>>", this.newsId);
             this.$router.push({
                 name: "newsDetails",
                 params: {
@@ -48,6 +91,12 @@ export default {
         toggleBookmark() {
             // You can implement the bookmark functionality here
             this.$emit("toggle-bookmark");
+        },
+        formatArticleDate(date) {
+            return getPublishDate(date);
+        },
+        getWebsiteLink(link) {
+            return link?.split("/")[2];
         },
     },
 };
@@ -92,6 +141,10 @@ export default {
     padding: 5px 10px;
     border: none;
     border-radius: 3px;
+    cursor: pointer;
+}
+.delete-bookmark {
+    color: #007bff;
     cursor: pointer;
 }
 </style>

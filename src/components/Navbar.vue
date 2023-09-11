@@ -1,17 +1,23 @@
 <template>
     <nav class="navbar">
         <div>
-            <p>News App</p>
+            <p @click="redirectToHomePage">News App</p>
         </div>
         <div class="navbar-content">
             <p>Top News</p>
-            <p>Bookmarks</p>
+            <router-link to="/bookmarks">Bookmarks</router-link>
         </div>
     </nav>
 </template>
 
 <script>
-export default {};
+export default {
+    methods: {
+        redirectToHomePage() {
+            this.$router.push("/");
+        },
+    },
+};
 </script>
 
 <style>
@@ -20,7 +26,7 @@ export default {};
     align-items: center;
     justify-content: space-between;
     padding: 10px 30px;
-    background: #393646;
+    background: #053b50;
     color: #ffffff;
 }
 .navbar-content {
