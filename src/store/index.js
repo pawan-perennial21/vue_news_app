@@ -112,7 +112,14 @@ const store = createStore({
                 `${topNewsUrl}?country=in&category=business&apiKey=${apiKey}`
             );
             commit("setLoading", false);
-            commit("setTopNewsList", res.data.articles);
+            const articlesWithUUID =
+            res.data.articles.map(
+                (article, index) => ({
+                    ...article,
+                    id: index,
+                })
+            );
+            commit("setTopNewsList", articlesWithUUID);
             if (res.data.articles.length === 0) {
                 commit("setErrorMessage", "");
             }

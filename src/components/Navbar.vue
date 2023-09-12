@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar">
-        <div>
+        <div class="logo">
             <p @click="redirectToHomePage">News App</p>
         </div>
         <div class="navbar-content">
@@ -26,12 +26,19 @@ export default {
 
 <style>
 .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 30px;
     background: #053b50;
     color: #ffffff;
+}
+.logo > p {
+    cursor: pointer;
 }
 .navbar-content {
     display: flex;

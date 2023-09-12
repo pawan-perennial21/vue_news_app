@@ -1,5 +1,5 @@
 <template>
-    <Header />
+    <Navbar />
     <div class="container">
         <router-view />
     </div>
@@ -7,12 +7,12 @@
 
 <script>
 // import { mapActions } from "vuex";
-import Header from "./components/Header.vue";
+import Navbar from "./components/Navbar.vue";
 
 export default {
     name: "App",
     components: {
-        Header,
+        Navbar,
     },
 };
 </script>
@@ -28,7 +28,7 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.container {
+/* .container {
     margin-top: 150px;
-}
+} */
 </style>

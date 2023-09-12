@@ -11,7 +11,7 @@
         <div class="news-content">
             <h3 class="news-headline">{{ article?.title }}</h3>
             <p>
-                {{ article.content }}
+                {{ article?.content }}
             </p>
         </div>
     </div>
@@ -57,7 +57,7 @@ export default {
     padding: 0px;
     width: 700px;
     margin: auto;
-    margin-top: 35px;
+    margin-top: 50px;
 }
 
 /* .main-container > .nav-container {

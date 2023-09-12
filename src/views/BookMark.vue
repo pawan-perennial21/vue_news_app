@@ -17,7 +17,7 @@
                     :website="item.url"
                     :content="item.content"
                     :publishDate="item.publishedAt"
-                    :id="item.id"
+                    :newsId="item.id"
                     :article="item"
                     @bookmark="bookmark(item.id)"
                     @deleteBookmark="deleteBookMark(item.id)"

@@ -1,4 +1,5 @@
 <template>
+    <Header />
     <NoRecord v-if="getNewsList?.length === 0" />
     <div class="all-result">
         <p>All Results: {{ totalResults }}</p>
@@ -25,10 +26,12 @@
 import { mapState, mapGetters, mapMutations } from "vuex";
 import NewsCard from "../components/NewsCard.vue";
 import NoRecord from "../components/NoRecord.vue";
+import Header from "../components/Header.vue";
 export default {
     components: {
         NoRecord,
         NewsCard,
+        Header,
     },
     computed: {
         ...mapState({
@@ -109,10 +112,11 @@ export default {
     grid-gap: 20px;
     justify-items: center;
 }
-.all-result{
+.all-result {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px;
+    margin-top: 150px;
+    margin-bottom: -30px;
 }
 </style>

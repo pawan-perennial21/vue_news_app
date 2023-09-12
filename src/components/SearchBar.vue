@@ -46,9 +46,12 @@
             </div>
         </div>
         <div class="search-btn">
-            <button class="cta-btn" @click="handelSearch">
-                Search
-            </button>
+            <div class="cta-btn" @click="handelSearch">
+                <img src="../assets/search.png" alt="search" />
+            </div>
+            <div class="cta-btn" @click="handleReset">
+                <img src="../assets/arrows-circle.png" alt="reset" />
+            </div>
         </div>
     </div>
 </template>
@@ -80,8 +83,22 @@ export default {
                 searchCountry: this.SearchCountry,
                 searchCategory: this.SearchCategory,
             };
-            this.$store.dispatch("updatePageSize", 21);
-            this.$emit("getSearchParams", payload);
+            if (
+                this.SearchQuery === "" &&
+                this.SearchCountry === "" &&
+                this.SearchCategory === ""
+            ) {
+                this.$store.dispatch("fetchAllData");
+            } else {
+                this.$store.dispatch("updatePageSize", 21);
+                this.$emit("getSearchParams", payload);
+            }
+        },
+        handleReset() {
+            (this.SearchQuery = ""),
+                (this.SearchCountry = ""),
+                (this.SearchCategory = "");
+            this.$store.dispatch("fetchAllData");
         },
     },
 };
@@ -112,9 +129,23 @@ input {
     outline: none;
     border-radius: 8px;
 }
+
+.search-btn {
+    display: flex;
+}
 .cta-btn {
-    width: 100px;
-    height: 35px;
+    background: #64ccc5;
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.cta-btn > img {
+    width: 25px;
+    height: 25px;
     border: none;
     outline: none;
     border-radius: 8px;
