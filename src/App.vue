@@ -6,20 +6,13 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+// import { mapActions } from "vuex";
 import Header from "./components/Header.vue";
 
 export default {
     name: "App",
     components: {
         Header,
-    },
-    mounted() {
-        this.getNewsList();
-    },
-    computed: {},
-    methods: {
-        ...mapActions(["getNewsList"]),
     },
 };
 </script>
@@ -34,5 +27,8 @@ export default {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+.container {
+    margin-top: 150px;
 }
 </style>

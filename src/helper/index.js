@@ -1,5 +1,5 @@
 import countries from "../utils/index.json";
-console.log("countries", countries);
+
 export const getPublishDate = (date) => {
     return date?.split("T")[0].replaceAll("-", "/");
 };

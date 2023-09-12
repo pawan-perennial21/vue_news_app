@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="header">
         <Navbar />
         <SearchBar @getSearchParams="getSearchParams" />
     </div>
@@ -15,7 +15,6 @@ export default {
     },
     methods: {
         getSearchParams(payload) {
-            console.log("getSearchParams", payload);
             this.extraParams = payload;
             this.$store.dispatch("fetchAllData", this.extraParams);
         },
@@ -26,4 +25,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+}
+</style>

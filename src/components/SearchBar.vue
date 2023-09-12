@@ -80,7 +80,6 @@ export default {
                 searchCountry: this.SearchCountry,
                 searchCategory: this.SearchCategory,
             };
-            console.log("payload",payload)
             this.$store.dispatch("updatePageSize", 21);
             this.$emit("getSearchParams", payload);
         },

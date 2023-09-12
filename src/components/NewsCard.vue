@@ -18,6 +18,7 @@
             <p>Published : {{ formatArticleDate(publishDate) }}</p>
         </div>
         <div class="news-footer">
+            <button class="go-btn" @click="goToPage">Go Page</button>
             <div
                 @click="$emit('bookmark')"
                 v-if="isBookmarked"
@@ -54,30 +55,11 @@ export default {
         website: String,
         content: String,
         publishDate: String,
-        // article: {
-        //     type: Object,
-        //     default: () => ({
-        //         id: "",
-        //         title: "",
-        //         content: "",
-        //         imgSrc: "",
-        //         publishDate: "",
-        //         website: "",
-        //         save: true,
-        //     }),
-        // },
     },
-
-    // data() {
-    //     return {
-    //         id: this.newsId,
-    //     };
-    // },
 
     methods: {
         ...mapActions(["fetchBookMarks"]),
         getNewsImg(img) {
-            console.log("image",img)
             return img ?? "https://dummyimage.com/600x400/000/fff";
         },
         goToPage() {
@@ -135,7 +117,7 @@ export default {
     margin-top: 10px;
 }
 
-.btn {
+.go-btn {
     background-color: #007bff;
     color: #fff;
     padding: 5px 10px;

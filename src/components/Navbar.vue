@@ -4,8 +4,12 @@
             <p @click="redirectToHomePage">News App</p>
         </div>
         <div class="navbar-content">
-            <p>Top News</p>
-            <router-link to="/bookmarks">Bookmarks</router-link>
+            <router-link class="link" to="/topnews"
+                >Top News</router-link
+            >
+            <router-link class="link" to="/bookmarks"
+                >Bookmarks</router-link
+            >
         </div>
     </nav>
 </template>
@@ -32,6 +36,11 @@ export default {
 .navbar-content {
     display: flex;
     align-items: center;
+}
+.link {
+    text-decoration: none;
+    color: #ffffff;
+    margin-left: 10px;
 }
 .navbar-content > p:nth-child(2) {
     margin-left: 10px;

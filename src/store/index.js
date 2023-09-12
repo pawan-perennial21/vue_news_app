@@ -7,6 +7,7 @@ const store = createStore({
         return {
             loading: false,
             newsLists: [],
+            topNewsList: [],
             newsDetails: {},
             totalResults: 0,
             pageSize: 21,
@@ -29,6 +30,9 @@ const store = createStore({
         setNewsList(state, data1) {
             state.newsLists = data1;
         },
+        setTopNewsList(state, data1) {
+            state.topNewsList = data1;
+        },
         setNewsDetails(state, data1) {
             state.newsLists = data1;
         },
@@ -37,15 +41,6 @@ const store = createStore({
         },
         setTotalResults(state, totalResults) {
             state.totalResults = totalResults;
-        },
-        setSelectedOption(state, country) {
-            state.selectedCountry = country;
-        },
-        setSelectedCategory(state, category) {
-            state.selectedCategory = category;
-        },
-        setTextInputMessage(state, message) {
-            state.textInputMessage = message;
         },
         setBookMarks(state, bookMarks) {
             state.bookMarks = [...state.bookMarks, bookMarks];
@@ -76,7 +71,6 @@ const store = createStore({
                     commit("setTotalResults", res.data.totalResults);
                     commit("setLoading", false);
                 } catch (error) {
-                    console.log(error);
                     commit("setLoading", false);
                 }
             } else {
@@ -87,29 +81,10 @@ const store = createStore({
                     searchCategory !== "" ||
                     searchCountry !== ""
                 ) {
-                    console.log("searchQuery",searchQuery)
-                    const url = `https://newsapi.org/v2/${
-                        searchCountry || searchQuery
-                            ? "top-headlines"
-                            : searchCategory
-                            ? "top-headlines"
-                            : "everything"
-                    }?${
-                        searchCountry
-                            ? `country=${searchCountry}&`
-                            : ""
-                    }${
-                        searchCategory
-                            ? `category=${searchCategory}&`
-                            : ""
-                    }${
-                        searchQuery ? `q=${searchQuery}&` : ""
-                    }pageSize=${
-                        this.state.pageSize
-                    }&apiKey=${apiKey}`;
+                    let countryCode = getCountryCode(searchCountry);
+                    const url = `${topNewsUrl}?country=${countryCode}&category=${searchCategory}&q=${searchQuery}&apiKey=${apiKey}`;
                     try {
                         const res = await axios.get(url);
-                        console.log("Ggagagagaga=>>>>>",res)
                         const articlesWithUUID =
                             res.data.articles.map(
                                 (article, index) => ({
@@ -124,7 +99,6 @@ const store = createStore({
                         );
                         commit("setLoading", false);
                     } catch (error) {
-                        console.log(error);
                         commit("setLoading", false);
                     }
                 }
@@ -133,16 +107,12 @@ const store = createStore({
         fetchBookMarks({ commit }, bookMarks) {
             commit("setBookMarks", bookMarks);
         },
-        async fetchTopHeading(
-            { commit },
-            { country, category, keyword }
-        ) {
-            let countryCode = getCountryCode(country);
+        async fetchTopHeading({ commit }) {
             const res = await axios.get(
-                `${topNewsUrl}?country=${countryCode}&category=${category}&q=${keyword}&apiKey=${apiKey}`
+                `${topNewsUrl}?country=in&category=business&apiKey=${apiKey}`
             );
             commit("setLoading", false);
-            commit("setNewsList", res.data.articles);
+            commit("setTopNewsList", res.data.articles);
             if (res.data.articles.length === 0) {
                 commit("setErrorMessage", "");
             }
@@ -151,6 +121,9 @@ const store = createStore({
     getters: {
         getNewsList: (state) => {
             return state.newsLists;
+        },
+        getTopNewsList: (state) => {
+            return state.topNewsList;
         },
         getPageCount(state) {
             return state.pageSize;

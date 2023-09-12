@@ -1,5 +1,8 @@
 <template>
-        <NoRecord v-if="getNewsList?.length === 0" />
+    <NoRecord v-if="getNewsList?.length === 0" />
+    <div class="all-result">
+        <p>All Results: {{ totalResults }}</p>
+    </div>
     <div class="news-list">
         <div v-for="news in newsList" :key="news.id">
             <NewsCard
@@ -21,7 +24,7 @@
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
 import NewsCard from "../components/NewsCard.vue";
-import NoRecord from "../components/NoRecord.vue"
+import NoRecord from "../components/NoRecord.vue";
 export default {
     components: {
         NoRecord,
@@ -59,7 +62,6 @@ export default {
             await this.$store.dispatch("fetchAllData");
         },
         getSearchParams(payload) {
-            console.log("getSearchParams", payload);
             this.extraParams = payload;
             this.$store.dispatch("fetchAllData", this.extraParams);
         },
@@ -80,7 +82,6 @@ export default {
                             window.innerHeight
                     ) >= document.documentElement.offsetHeight;
                 if (bottomOfWindow) {
-                    console.log("called");
                     const currentpage = this.getPageCount + 21;
                     this.$store.dispatch(
                         "updatePageSize",
@@ -107,5 +108,11 @@ export default {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 20px;
     justify-items: center;
+}
+.all-result{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
 }
 </style>
