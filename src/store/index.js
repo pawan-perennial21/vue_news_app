@@ -118,8 +118,12 @@ const store = createStore({
                     ...article,
                     id: index,
                 })
-            );
-            commit("setTopNewsList", articlesWithUUID);
+                );
+                commit(
+                    "setTotalResults",
+                    res.data.totalResults
+                );
+            commit("setNewsList", articlesWithUUID);
             if (res.data.articles.length === 0) {
                 commit("setErrorMessage", "");
             }

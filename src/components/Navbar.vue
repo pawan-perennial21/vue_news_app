@@ -4,9 +4,7 @@
             <p @click="redirectToHomePage">News App</p>
         </div>
         <div class="navbar-content">
-            <router-link class="link" to="/topnews"
-                >Top News</router-link
-            >
+            <p @click="handleTopNews">Top News</p>
             <router-link class="link" to="/bookmarks"
                 >Bookmarks</router-link
             >
@@ -19,6 +17,10 @@ export default {
     methods: {
         redirectToHomePage() {
             this.$router.push("/");
+              this.$store.dispatch("fetchAllData");
+        },
+        handleTopNews() {
+            this.$store.dispatch("fetchTopHeading");
         },
     },
 };
@@ -49,7 +51,7 @@ export default {
     color: #ffffff;
     margin-left: 10px;
 }
-.navbar-content > p:nth-child(2) {
-    margin-left: 10px;
+.navbar-content > p {
+    cursor: pointer;
 }
 </style>

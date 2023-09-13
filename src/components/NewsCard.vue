@@ -24,14 +24,17 @@
                 v-if="isBookmarked"
                 class="delete-bookmark"
             >
-              <img src="../assets/bookmark-white.png" alt="bookmark-white">
+                <img
+                    src="../assets/bookmark-white.png"
+                    alt="bookmark-white"
+                />
             </div>
             <div
                 v-else
                 @click="$emit('bookmark')"
                 class="delete-bookmark"
             >
-               <img src="../assets/bookmark.png" alt="bookmark">
+                <img src="../assets/bookmark.png" alt="bookmark" />
             </div>
         </div>
     </div>
@@ -88,12 +91,11 @@ export default {
 .news-card {
     width: 300px;
     border: 1px solid #ccc;
-    margin: 10px;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.publish-date>p{
+.publish-date > p {
     color: grey;
     margin-top: 5px;
 }
@@ -121,7 +123,7 @@ export default {
 }
 
 .go-btn {
-    background-color: #64CCC5;
+    background-color: #64ccc5;
     color: #fff;
     padding: 5px 10px;
     border: none;
@@ -132,8 +134,13 @@ export default {
 .delete-bookmark {
     cursor: pointer;
 }
-.delete-bookmark >img{
+.delete-bookmark > img {
     width: 28px;
     height: 28px;
+}
+@media (max-width: 768px) {
+    .news-card {
+        width: 500px;
+    }
 }
 </style>

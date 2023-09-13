@@ -1,4 +1,4 @@
-import countries from "../utils/index.json";
+import countries from "../utils/countries.json";
 
 export const getPublishDate = (date) => {
     return date?.split("T")[0].replaceAll("-", "/");

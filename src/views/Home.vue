@@ -116,7 +116,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 150px;
-    margin-bottom: -30px;
+    margin-top: 130px;
+    margin-bottom: 10px;
+}
+@media (max-width: 768px) {
+    .all-result {
+        margin-top: 240px;
+    }
 }
 </style>

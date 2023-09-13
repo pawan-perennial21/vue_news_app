@@ -3,8 +3,8 @@
         <div class="bookmark-nav">
             <nav-bar />
         </div>
-        <div v-if="getBookMarkLength">
-            <h2 class="nobookmark">No BookMarks Saved</h2>
+        <div class="nobookmark" v-if="getBookMarkLength">
+            <h2>No BookMarks Saved</h2>
         </div>
         <div class="bookmark-card">
             <div
@@ -23,7 +23,6 @@
                     @deleteBookmark="deleteBookMark(item.id)"
                     :isBookmarked="!item.isBookmarked"
                 />
-              
             </div>
         </div>
     </div>
@@ -118,7 +117,7 @@ export default {
 .bookmark-card {
     display: flex;
     flex-wrap: wrap;
-    background: gainsboro;
+    /* background: gainsboro; */
     justify-content: center;
     margin-top: 30px;
 }
@@ -133,7 +132,7 @@ export default {
 
 .book-marks-page {
     height: 100vh;
-    background: gainsboro;
+    /* background: gainsboro; */
 }
 
 .text-bookmark {
@@ -150,7 +149,12 @@ img {
     top: 0;
     position: sticky;
 }
-
+.nobookmark {
+    margin: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 @media only screen and (max-width: 768px) {
     .bookmark-card {
         justify-content: center;

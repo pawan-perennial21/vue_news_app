@@ -56,7 +56,7 @@
     </div>
 </template>
 <script>
-import countries from "../utils/index.json";
+import countries from "../utils/countries.json";
 import { categories } from "../utils/category.json";
 export default {
     data() {
@@ -107,13 +107,12 @@ export default {
 <style>
 .search-conatiner {
     width: 100%;
-    /* height: 80px; */
     padding: 20px;
     background: gray;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 .dropdown-boxes {
     display: flex;
@@ -136,7 +135,7 @@ input {
 .cta-btn {
     background: #64ccc5;
     padding: 5px;
-    margin-left: 10px;
+    margin-left: 15px;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -144,8 +143,8 @@ input {
     cursor: pointer;
 }
 .cta-btn > img {
-    width: 25px;
-    height: 25px;
+    width: 23px;
+    height: 23px;
     border: none;
     outline: none;
     border-radius: 8px;

@@ -107,7 +107,7 @@ export default {
 
 @media only screen and (max-width: 768px) {
     .goto-card {
-        margin: 24px 30px 0px 30px;
+        margin: 50px 30px 0px 30px;
     }
 }
 @media only screen and (max-width: 280px) {

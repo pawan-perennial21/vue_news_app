@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// import { mapActions } from "vuex";
 import Navbar from "./components/Navbar.vue";
 
 export default {
@@ -28,7 +27,4 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-/* .container {
-    margin-top: 150px;
-} */
 </style>
