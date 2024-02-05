@@ -1,168 +1,101 @@
 <template>
-    <div class="book-marks-page">
-        <div class="bookmark-nav">
-            <nav-bar />
+    <div class="page-container">
+        <h2 class="page-header">
+            {{ bookmarks.length }} News Result(s)
+        </h2>
+        <div class="news-grid" v-if="bookmarks.length">
+            <NewsCard
+                v-for="article in bookmarks"
+                :key="article.title"
+                :article="article"
+            />
         </div>
-        <div class="nobookmark" v-if="getBookMarkLength">
-            <h2>No BookMarks Saved</h2>
-        </div>
-        <div class="bookmark-card">
-            <div
-                v-for="(item, index) in bookMarkList"
-                :key="item.id + index"
-            >
-                <NewsCard
-                    :imgSrc="item.urlToImage"
-                    :title="item.title"
-                    :website="item.url"
-                    :content="item.content"
-                    :publishDate="item.publishedAt"
-                    :newsId="item.id"
-                    :article="item"
-                    @bookmark="bookmark(item.id)"
-                    @deleteBookmark="deleteBookMark(item.id)"
-                    :isBookmarked="!item.isBookmarked"
-                />
-            </div>
+        <div v-else class="no-news">
+            <h3>No news found.</h3>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import NewsCard from "../components/NewsCard.vue";
-import { mapGetters } from "vuex";
+
 export default {
-    name: "BookMarks",
     components: {
         NewsCard,
     },
-    data() {
-        return {
-            bookMarkList: [],
-        };
-    },
     computed: {
-        ...mapGetters(["getBookMarks"]),
-
-        getBookMarkLength() {
-            return this.bookMarkList?.length == 0;
+        ...mapGetters(["getBookmarks"]),
+        bookmarks() {
+            return this.getBookmarks;
         },
     },
     methods: {
-        bookmark(id) {
-            this.$store.commit("updateBookmark", id);
-            this.bookMarkList = this.getBookMarks;
+        ...mapActions(["toggleBookmarkArticle"]),
+        removeBookmark(article) {
+            // Toggle the bookmark status to remove it from bookmarks
+            this.toggleBookmarkArticle(article);
         },
-        deleteBookMark(id) {
-            this.$store.commit("updateDeleteBookmark", id);
-        },
-        getPublishDate(date) {
-            return date.split("T")[0];
-        },
-    },
-    mounted() {
-        this.bookMarkList = this.getBookMarks;
     },
 };
 </script>
 
 <style scoped>
-.news-img img {
-    width: 300px;
-    height: 200px;
+.page-header {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
-.news-content {
-    padding: 15px;
-    text-align: left;
-}
-
-.news-headline {
-    margin: 0;
-}
-
-.goto-btn {
-    background-color: #333;
-    padding: 9px;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 16px;
-}
-
-.card-button {
+.no-news {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.publish-date {
-    border-top: 1px solid gray;
-}
-
-.publish-date > p {
-    text-align: left;
-    padding-left: 15px;
-}
-
-.save-icon img {
-    width: 24px;
-    height: 24px;
-}
-
-.save-icon {
-    height: 31px;
-}
-
-.bookmark-card {
-    display: flex;
-    flex-wrap: wrap;
-    /* background: gainsboro; */
     justify-content: center;
-    margin-top: 30px;
+    align-items: center;
+    height: 100vh;
+}
+
+.no-news h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: -200px;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    justify-items: center;
+    padding-bottom: 60px;
 }
 
 .news-card {
-    margin: 7px 16px 10px 16px;
+    width: 100%;
 }
 
-.back-button {
-    text-align: left;
-}
-
-.book-marks-page {
-    height: 100vh;
-    /* background: gainsboro; */
-}
-
-.text-bookmark {
-    text-align: center;
-    margin-top: 47px;
-}
-
-img {
-    width: 24px;
-    height: 24px;
-}
-
-.bookmark-nav {
-    top: 0;
-    position: sticky;
-}
-.nobookmark {
-    margin: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-@media only screen and (max-width: 768px) {
-    .bookmark-card {
-        justify-content: center;
+@media (max-width: 1400px) {
+    .news-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 20px;
+        justify-items: center;
     }
+}
 
-    .text-bookmark {
-        padding-top: 10px;
-        margin-top: 85px;
+@media (max-width: 1024px) {
+    .news-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        justify-items: center;
+    }
+}
+
+@media (max-width: 698px) {
+    .news-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+        justify-items: center;
     }
 }
 </style>

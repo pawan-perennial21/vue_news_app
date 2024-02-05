@@ -5,20 +5,12 @@
         <p>All Results: {{ totalResults }}</p>
     </div>
     <div class="news-list">
-        <div v-for="news in newsList" :key="news.id">
-            <NewsCard
-                :title="news.title"
-                :description="news.description"
-                :imageSrc="news.urlToImage"
-                :newsId="news.id"
-                :website="news.url"
-                :content="news.content"
-                :publishDate="news.publishedAt"
-                @bookmark="bookmark(news.id)"
-                @deleteBookmark="deleteBookMark(news.id)"
-                :isBookmarked="!news.isBookmarked"
-            />
-        </div>
+        <NewsCard
+            v-for="article in newsList"
+            :key="article.title"
+            :article="article"
+        />
+        <!-- </div> -->
     </div>
 </template>
 

@@ -7,6 +7,7 @@ const store = createStore({
         return {
             loading: false,
             newsLists: [],
+            bookmarks: [],
             topNewsList: [],
             newsDetails: {},
             totalResults: 0,
@@ -17,16 +18,16 @@ const store = createStore({
         };
     },
     mutations: {
-        updateBookmark(state, id) {
-            state.newsLists = state.newsLists.map((article) =>
-                article.id == id
-                    ? {
-                          ...article,
-                          isBookmarked: !article.isBookmarked,
-                      }
-                    : article
-            );
-        },
+        // updateBookmark(state, id) {
+        //     state.newsLists = state.newsLists.map((article) =>
+        //         article.id == id
+        //             ? {
+        //                   ...article,
+        //                   isBookmarked: !article.isBookmarked,
+        //               }
+        //             : article
+        //     );
+        // },
         setNewsList(state, data1) {
             state.newsLists = data1;
         },
@@ -42,11 +43,31 @@ const store = createStore({
         setTotalResults(state, totalResults) {
             state.totalResults = totalResults;
         },
-        setBookMarks(state, bookMarks) {
-            state.bookMarks = [...state.bookMarks, bookMarks];
-        },
+
         setPageSize(state, payload) {
             state.pageSize = payload;
+        },
+        addBookMarks: (state, article) => {
+            state.bookmarks.push(article);
+            localStorage.setItem(
+                "bookmarks",
+                JSON.stringify(state.bookmarks)
+            );
+        },
+        removeBookMarks: (state, article) => {
+            const index = state.bookmarks.findIndex(
+                (bookmark) => bookmark.id === article.id
+            );
+            if (index !== -1) {
+                state.bookmarks.splice(index, 1);
+                localStorage.setItem(
+                    "bookmarks",
+                    JSON.stringify(state.bookmarks)
+                );
+            }
+        },
+        setBookMarks: (state, bookmarks) => {
+            state.bookmarks = bookmarks;
         },
     },
     actions: {
@@ -112,26 +133,42 @@ const store = createStore({
                 `${topNewsUrl}?country=in&category=business&apiKey=${apiKey}`
             );
             commit("setLoading", false);
-            const articlesWithUUID =
-            res.data.articles.map(
+            const articlesWithUUID = res.data.articles.map(
                 (article, index) => ({
                     ...article,
                     id: index,
                 })
-                );
-                commit(
-                    "setTotalResults",
-                    res.data.totalResults
-                );
+            );
+            commit("setTotalResults", res.data.totalResults);
             commit("setNewsList", articlesWithUUID);
             if (res.data.articles.length === 0) {
                 commit("setErrorMessage", "");
             }
         },
+        toggleBookmarkArticle({ commit, getters }, article) {
+            if (getters.isArticleBookmarked(article)) {
+                commit("removeBookMarks", article);
+            } else {
+                commit("addBookMarks", article);
+            }
+        },
+        loadBookmarks({ commit }) {
+            const bookmarks =
+                JSON.parse(localStorage.getItem("bookmarks")) || [];
+            commit("setBookMarks", bookmarks);
+        },
     },
     getters: {
         getNewsList: (state) => {
             return state.newsLists;
+        },
+        isArticleBookmarked: (state) => (article) => {
+            return state.bookmarks.some(
+                (bookmark) => bookmark.id === article.id
+            );
+        },
+        getBookmarks: (state) => {
+            return state.bookmarks;
         },
         getTopNewsList: (state) => {
             return state.topNewsList;
@@ -148,11 +185,6 @@ const store = createStore({
         },
         getTotalResults(state) {
             return state.totalResults;
-        },
-        getBookMarks(state) {
-            return state.newsLists.filter(
-                (article) => article.isBookmarked
-            );
         },
     },
 });

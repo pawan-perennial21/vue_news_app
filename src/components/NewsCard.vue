@@ -3,65 +3,63 @@
         <div class="news-img">
             <img
                 class="news-image"
-                :src="getNewsImg(imageSrc)"
+                :src="getNewsImg(article?.urlToImage)"
                 alt="News Image"
             />
         </div>
         <div class="news-content">
-            <h3 class="news-headline">{{ title }}</h3>
-            <h4 class="web-link">{{ getWebsiteLink(website) }}</h4>
+            <h3 class="news-headline">{{ article?.title }}</h3>
+            <h4 class="web-link">
+                {{ getWebsiteLink(article?.website) }}
+            </h4>
             <p class="sub-content">
-                {{ content }}
+                {{ article?.content }}
             </p>
         </div>
         <div class="publish-date">
-            <p>Published : {{ formatArticleDate(publishDate) }}</p>
+            <!-- <p>
+                Published :
+                {{ formatArticleDatearticle(article?.publishDate) }}
+            </p> -->
         </div>
         <div class="news-footer">
             <button class="go-btn" @click="goToPage">Go Page</button>
-            <div
-                @click="$emit('bookmark')"
-                v-if="isBookmarked"
-                class="delete-bookmark"
-            >
+            <div class="delete-bookmark">
                 <img
-                    src="../assets/bookmark-white.png"
-                    alt="bookmark-white"
+                    :src="
+                        isBookmark ? bookmarkFilledIcon : bookmarkIcon
+                    "
+                    alt="News Image"
+                    class="delete-bookmark"
+                    @click="toggleIcons"
                 />
-            </div>
-            <div
-                v-else
-                @click="$emit('bookmark')"
-                class="delete-bookmark"
-            >
-                <img src="../assets/bookmark.png" alt="bookmark" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+/* eslint-disable */
 import { getPublishDate } from "@/helper";
 import { mapActions } from "vuex";
+import bookmarkIcon from "../assets/bookmark-white.png";
+import bookmarkFilledIcon from "../assets/bookmark.png";
 export default {
     data() {
         return {
             allBookMark: [],
+            isBookmark: false,
+            bookmarkIcon,
+            bookmarkFilledIcon,
         };
     },
     props: {
-        title: String,
-        description: String,
-        imageSrc: String,
-        isBookmarked: Boolean,
+        article: Object,
         newsId: Number,
-        website: String,
-        content: String,
-        publishDate: String,
     },
 
     methods: {
-        ...mapActions(["fetchBookMarks"]),
+        ...mapActions(["fetchBookMarks", "toggleBookmarkArticle"]),
         getNewsImg(img) {
             return img ?? "https://dummyimage.com/600x400/000/fff";
         },
@@ -73,15 +71,22 @@ export default {
                 },
             });
         },
-        toggleBookmark() {
-            // You can implement the bookmark functionality here
-            this.$emit("toggle-bookmark");
+        toggleIcons() {
+            this.toggleBookmarkArticle(this.article);
         },
+
         formatArticleDate(date) {
             return getPublishDate(date);
         },
         getWebsiteLink(link) {
             return link?.split("/")[2];
+        },
+    },
+    computed: {
+        isBookmark() {
+            return this.$store.getters.isArticleBookmarked(
+                this.article
+            );
         },
     },
 };

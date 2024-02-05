@@ -1,0 +1,214 @@
+{
+  "data": {
+    "position": [
+      {
+        "fieldLabel": "Ultimate Beneficial Owners (UBO)",
+        "value": "Ultimate Beneficial Owner"
+      },
+      { "fieldLabel": "Director", "value": "Director" },
+      { "fieldLabel": "Shareholder", "value": "Shareholder" }
+    ],
+      "annualTurnover": [
+        { "fieldLabel": "Less than SGD 10,000", "value": "Less than SGD 10,000" },
+        { "fieldLabel": "SGD 10,000 to SGD 25,000", "value": "SGD 10,000 to SGD 25,000" },
+        { "fieldLabel": "SGD 25,000 to SGD 50,000", "value": "SGD 25,000 to SGD 50,000" },
+        {
+          "fieldLabel": "SGD 50,000 to SGD 100,000",
+          "value": "SGD 50,000 to SGD 100,000"
+        },
+        {
+          "fieldLabel": "SGD 100,000 to SGD 250,000",
+          "value": "SGD 100,000 to SGD 250,000"
+        },
+        {
+          "fieldLabel": "SGD 250,000 to SGD 500,000",
+          "value": "SGD 250,000 to SGD 500,000"
+        },
+        { "fieldLabel": "SGD 500,000+", "value": "SGD 500,000+" }],
+      "industrySector":[
+        { "fieldLabel": "Accountancy firm", "value": "Accountancy firm" },
+        { "fieldLabel": "Aerospace/Defense", "value": "Aerospace/Defense" },
+        {
+          "fieldLabel": "Agricultural Services & Products",
+          "value": "Agricultural Services & Products"
+        },
+        { "fieldLabel": "Agriculture", "value": "Agriculture" },
+        {
+          "fieldLabel": "Banks/Building Societies/Credit Unions",
+          "value": "Banks/Building Societies/Credit Unions"
+        },
+        {
+          "fieldLabel": "Beverage providers/suppliers (Alcoholic, spirits)",
+          "value": "Beverage providers/suppliers (Alcoholic, spirits)"
+        },
+        {
+          "fieldLabel": "Beverage providers/suppliers (non-alcoholic)",
+          "value": "Beverage providers/suppliers (non-alcoholic)"
+        },
+        { "fieldLabel": "Charitable organisation", "value": "Charitable organisation" },
+        {
+          "fieldLabel": "Chemicals sales, distribution",
+          "value": "Chemicals sales, distribution"
+        },
+        {
+          "fieldLabel": "Chemichal & related manufacturing",
+          "value": "Chemichal & related manufacturing"
+        },
+        { "fieldLabel": "Construction", "value": "Construction" },
+        { "fieldLabel": "Consultancy", "value": "Consultancy" },
+        { "fieldLabel": "Designers/Engineers", "value": "Designers/Engineers" },
+        {
+          "fieldLabel": "Doctors & Other Health Care professionals",
+          "value": "Doctors & Other Health Care professionals"
+        },
+        {
+          "fieldLabel":
+            "Drugs manufacturing/supplies (including legal cannabis, marijuana trade)",
+          "value":
+            "Drugs manufacturing/supplies (including legal cannabis, marijuana trade)"
+        },
+        { "fieldLabel": "Education Providers", "value": "Education Providers" },
+        { "fieldLabel": "Entertainment Industry", "value": "Entertainment Industry" },
+        { "fieldLabel": "Farming", "value": "Farming" },
+        {
+          "fieldLabel":
+            "Financial Services provider (adviser, mortgage broker, Loan consultant, debt recovery consultant, pension etc)",
+          "value":
+            "Financial Services provider (adviser, mortgage broker, Loan consultant, debt recovery consultant, pension etc)",
+        },
+        { "fieldLabel": "Food suppliers", "value": "Food suppliers" },
+        { "fieldLabel": "Freelancer", "value": "Freelancer" },
+        { "fieldLabel": "Gaming houses/Casinos", "value": "Gaming houses/Casinos" },
+        {
+          "fieldLabel": "Government organisation (Public sector)",
+          "value": "Government organisation (Public sector)"
+        },
+        { "fieldLabel": "Health Care Services", "value": "Health Care Services" },
+        {
+          "fieldLabel": "High Value Goods - Jewellery/Gold/Commodities",
+          "value": "High Value Goods - Jewellery/Gold/Commodities"
+        },
+        { "fieldLabel": "Insurance providers", "value": "Insurance providers" },
+        {
+          "fieldLabel": "Legal Services (Lawyers, External Counsels etc)",
+          "value": "Legal Services (Lawyers, External Counsels etc)"
+        },
+        {
+          "fieldLabel": "Logistics firms (trucks, transportation, freight)",
+          "value": "Logistics firms (trucks, transportation, freight)"
+        },
+        {
+          "fieldLabel":
+            "Manufacturing (Auto, Car, Clothing, Electronics, Food Products, Furniture)",
+          "value":
+            "Manufacturing (Auto, Car, Clothing, Electronics, Food Products, Furniture)",
+        },
+        { "fieldLabel": "Media/Marketing", "value": "Media/Marketing" },
+        { "fieldLabel": "Migration agent", "value": "Migration agent" },
+        {
+          "fieldLabel": "MSBs/Remittance Providers",
+          "value": "MSBs/Remittance Providers"
+        },
+        {
+          "fieldLabel": "Music Industry (music production, suppliers, recording)",
+          "value": "Music Industry (music production, suppliers, recording)"
+        },
+        {
+          "fieldLabel":
+            "Not for Profit Organisations (Government Incentivised entities)",
+          "value": "Not for Profit Organisations (Government Incentivised entities)"
+        },
+        {
+          "fieldLabel": "Online Gaming developers/Providers",
+          "value": "Online Gaming developers/Providers"
+        },
+        {
+          "fieldLabel": "Online shopping providers/suppliers",
+          "value": "Online shopping providers/suppliers"
+        },
+        {
+          "fieldLabel": "Online suppliers of Adult Content",
+          "value": "Online suppliers of Adult Content"
+        },
+        {
+          "fieldLabel": "Payment Platforms Providers",
+          "value": "Payment Platforms Providers"
+        },
+        {
+          "fieldLabel": "Payrolls provider and payroll solution providers",
+          "value": "Payrolls provider and payroll solution providers",
+        },
+        {
+          "fieldLabel": "Pharmaceutical/Health Products & supplies",
+          "value": "Pharmaceutical/Health Products & supplies",
+        },
+        { "fieldLabel": "Power/Energy Providers", "value": "Power/Energy Providers" },
+        {
+          "fieldLabel": "Real Estates/Property providers",
+          "value": "Real Estates/Property providers",
+        },
+      
+        {
+          "fieldLabel": "Recreation/Live Entertainment",
+          "value": "Recreation/Live Entertainment",
+        },
+        {
+          "fieldLabel": "Recruiting firms, suppliers/providers",
+          "value": "Recruiting firms, suppliers/providers",
+        },
+        { "fieldLabel": "Religious organisations", "value": "Religious organisations" },
+        { "fieldLabel": "Securities & Investment", "value": "Securities & Investment" },
+        { "fieldLabel": "Security firms", "value": "Security firms" },
+        {
+          "fieldLabel": "Superannuation funds providers",
+          "value": "Superannuation funds providers",
+        },
+        { "fieldLabel": "Technology providers", "value": "Technology providers" },
+        {
+          "fieldLabel": "Telecommunication providers",
+          "value": "Telecommunication providers",
+        },
+        {
+          "fieldLabel":
+            "Tobacco suppliers/manufacturers (including e-cigarettes, vapours etc)",
+          "value":
+            "Tobacco suppliers/manufacturers (including e-cigarettes, vapours etc)",
+        },
+        {
+          "fieldLabel": "Travel & Tourism suppliers/providers",
+          "value": "Travel & Tourism suppliers/providers",
+        },
+        { "fieldLabel": "Trust funds providers", "value": "Trust funds providers" },
+        { "fieldLabel": "Undisclosed", "value": "Undisclosed" },
+        { "fieldLabel": "Universities/Colleges", "value": "Universities/Colleges" },
+    ],
+    "listedExchange":[
+      { "fieldLabel": "Domestic Exchange", "value": "Domestic Exchange" },
+      { "fieldLabel": "International Exchange", "value": "International Exchange" },
+      { "fieldLabel": "Not Listed", "value": "Not Listed" },
+    ],
+    "totalEmployees": [
+      { "fieldLabel": "Less than or equal 5", "value": "Less than or equal 5" },
+      { "fieldLabel": "Between 6 to 24", "value": "Between 6 to 24" },
+      { "fieldLabel": "Between 25 to 49", "value": "Between 25 to 49" },
+      { "fieldLabel": "Between 50 to 99", "value": "Between 50 to 99" },
+      { "fieldLabel": "More than 100", "value": "More than 100" },
+    ],
+      "unregulatedTrustType": [],
+      "businessType":[
+      { "fieldLabel": "Sole Trader", "value": "Sole Trader" },
+      { "fieldLabel": "Private Limited Company", "value": "Private Limited Company" },
+      { "fieldLabel": "Public Company", "value": "Public Company" },
+      { "fieldLabel": "Partnership", "value": "Partnership" },
+      {
+        "fieldLabel": "Limited Liability Partnership Firm",
+        "value": "Limited Liability Partnership Firm",
+      },
+      { "fieldLabel": "Government Body", "value": "Government Body" },
+      { "fieldLabel": "Associations", "value": "Associations" },
+      { "fieldLabel": "Trust", "value": "Trust" },
+      { "fieldLabel": "Regulated Trust", "value": "Regulated Trust" },
+      { "fieldLabel": "Unregulated Trust", "value": "Unregulated Trust" },
+    ];
+  }
+}
