@@ -18,16 +18,6 @@ const store = createStore({
         };
     },
     mutations: {
-        // updateBookmark(state, id) {
-        //     state.newsLists = state.newsLists.map((article) =>
-        //         article.id == id
-        //             ? {
-        //                   ...article,
-        //                   isBookmarked: !article.isBookmarked,
-        //               }
-        //             : article
-        //     );
-        // },
         setNewsList(state, data1) {
             state.newsLists = data1;
         },
@@ -180,6 +170,7 @@ const store = createStore({
             let result = state.newsLists?.filter((article) => {
                 return article.id === +id;
             });
+            console.log("resultresult", result);
 
             return result[0];
         },

@@ -4,7 +4,9 @@
     </div>
 </template>
 <script>
-export default {};
+export default {
+    name: "NoRecord",
+};
 </script>
 <style>
 .no-data {

@@ -17,10 +17,10 @@
             </p>
         </div>
         <div class="publish-date">
-            <!-- <p>
+            <p>
                 Published :
                 {{ formatArticleDatearticle(article?.publishDate) }}
-            </p> -->
+            </p>
         </div>
         <div class="news-footer">
             <button class="go-btn" @click="goToPage">Go Page</button>
@@ -94,7 +94,6 @@ export default {
 
 <style scoped>
 .news-card {
-    width: 300px;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;

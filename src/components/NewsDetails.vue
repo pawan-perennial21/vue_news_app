@@ -22,7 +22,7 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            newsId: this.$route.params.newsId,
+            newsId: this.$route?.params.newsId,
         };
     },
     computed: {
@@ -44,6 +44,10 @@ export default {
         },
     },
     async created() {
+        console.log(
+            "this.$route.params.newsId",
+            this.$route.params.newsId
+        );
         await this.getNewsDetailsData();
     },
 };
@@ -59,12 +63,6 @@ export default {
     margin: auto;
     margin-top: 50px;
 }
-
-/* .main-container > .nav-container {
-  position: sticky;
-  width: auto;
-  top: 0;
-} */
 
 .news-icon img {
     width: 100%;

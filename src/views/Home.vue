@@ -10,7 +10,6 @@
             :key="article.title"
             :article="article"
         />
-        <!-- </div> -->
     </div>
 </template>
 
@@ -100,9 +99,36 @@ export default {
 <style>
 .news-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
     justify-items: center;
+    padding-bottom: 60px;
+}
+@media (max-width: 1400px) {
+    .news-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 20px;
+        justify-items: center;
+    }
+}
+
+@media (max-width: 1024px) {
+    .news-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        justify-items: center;
+    }
+}
+
+@media (max-width: 698px) {
+    .news-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+        justify-items: center;
+    }
 }
 .all-result {
     display: flex;

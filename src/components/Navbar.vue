@@ -14,10 +14,11 @@
 
 <script>
 export default {
+    name: "Navbar",
     methods: {
         redirectToHomePage() {
             this.$router.push("/");
-              this.$store.dispatch("fetchAllData");
+            this.$store.dispatch("fetchAllData");
         },
         handleTopNews() {
             this.$store.dispatch("fetchTopHeading");
