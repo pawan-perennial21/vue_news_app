@@ -19,7 +19,8 @@
         <div class="publish-date">
             <p>
                 Published :
-                {{ formatArticleDatearticle(article?.publishDate) }}
+                {{ formatArticleDate(article?.publishedAt) }}
+                <!-- Corrected line -->
             </p>
         </div>
         <div class="news-footer">
@@ -47,7 +48,6 @@ import bookmarkFilledIcon from "../assets/bookmark.png";
 export default {
     data() {
         return {
-            allBookMark: [],
             isBookmark: false,
             bookmarkIcon,
             bookmarkFilledIcon,
