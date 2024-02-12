@@ -27,12 +27,25 @@ export default {
     },
     computed: {
         ...mapGetters(["getArticlesById"]),
-        article() {
-            return this.getArticlesById(this.$route.params.newsId);
-        },
 
+        article() {
+            if (
+                this.$route &&
+                this.$route.params &&
+                this.$route.params.newsId
+            ) {
+                return this.getArticlesById(
+                    this.$route.params.newsId
+                );
+            } else {
+                return null; // or any default value that makes sense in your application
+            }
+        },
         getArticleLength() {
-            return this.article?.length == 0;
+            return (
+                !this.article ||
+                Object.keys(this.article).length === 0
+            );
         },
     },
     methods: {
@@ -44,10 +57,6 @@ export default {
         },
     },
     async created() {
-        console.log(
-            "this.$route.params.newsId",
-            this.$route.params.newsId
-        );
         await this.getNewsDetailsData();
     },
 };

@@ -6,9 +6,10 @@
     </div>
     <div class="news-list">
         <NewsCard
-            v-for="article in newsList"
+            v-for="(article, index) in newsList"
             :key="article.title"
             :article="article"
+            :newsId="index"
         />
     </div>
 </template>
