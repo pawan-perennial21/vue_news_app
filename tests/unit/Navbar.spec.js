@@ -1,22 +1,54 @@
-// Importing required libraries
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
-import Navbar from "../../src/components/Navbar.vue"; // Assuming the component is in the same directory and named 'HelloWorld.vue'
+import Navbar from "@/components/Navbar.vue";
+import { createRouter, createWebHistory } from "vue-router";
+import Vuex from "vuex";
+import Sinon from "sinon";
 
-describe("Navbar", () => {
-    // it("renders the component with Navbar", () => {
-    //     // Mounting the component
-    //     const wrapper = mount(Navbar);
+describe("Navbar.vue", () => {
+    let wrapper;
+    let router;
+    let store;
 
-    //     // Checking if the rendered text contains 'Hello world'
-    //     expect(wrapper.text()).to.include("Hello world");
-    // });
+    beforeEach(() => {
+        router = createRouter({
+            history: createWebHistory(),
+            routes: [],
+        });
+        store = new Vuex.Store({
+            state: {},
+            mutations: {},
+            actions: {
+                fetchAllData: () => {}, // Mock fetchAllData action
+                fetchTopHeading: () => {}, // Mock fetchTopHeading action
+            },
+        });
 
-    it('has the name "Navbar"', () => {
-        // Creating a new instance of the component
-        const wrapper = mount(Navbar);
-
-        // Accessing the component's name property
-        expect(wrapper.vm.$options.name).to.equal("Navbar");
+        wrapper = mount(Navbar, {
+            global: {
+                plugins: [router, store],
+            },
+        });
     });
+
+    it("redirects to home page when logo is clicked", async () => {
+        const redirectToHomePageStub = Sinon.stub(
+            wrapper.vm,
+            "redirectToHomePage"
+        );
+        await wrapper.find(".logo p").trigger("click");
+        expect(redirectToHomePageStub.calledOnce).to.be.true;
+    });
+
+    it("dispatches fetchTopHeading action when top news link is clicked", async () => {
+        const fetchTopHeadingStub = Sinon.stub(
+            wrapper.vm.$store,
+            "dispatch"
+        );
+        await wrapper.find(".navbar-content p").trigger("click");
+        expect(fetchTopHeadingStub.calledOnceWith("fetchTopHeading"))
+            .to.be.true;
+    });
+
+    // You can write more test cases for other interactions here
 });

@@ -78,6 +78,10 @@ const store = createStore({
                             isBookmarked: false,
                         })
                     );
+                    console.log(
+                        "articlesWithUUIDarticlesWithUUID",
+                        articlesWithUUID
+                    );
                     commit("setNewsList", articlesWithUUID);
                     commit("setTotalResults", res.data.totalResults);
                     commit("setLoading", false);
@@ -170,7 +174,7 @@ const store = createStore({
             let result = state.newsLists?.filter((article) => {
                 return article.id === +id;
             });
-            console.log("resultresult", result);
+            console.log("resultresult", result[0]);
 
             return result[0];
         },
