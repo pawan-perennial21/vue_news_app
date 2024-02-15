@@ -10,6 +10,11 @@ const routes = [
         component: NewsDetails,
     },
     {
+        path: "/bookmarks/:newsId",
+        name: "newsDetails",
+        component: NewsDetails,
+    },
+    {
         path: "/bookmarks",
         name: "bookmarks",
         component: BookMarks,

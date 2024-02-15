@@ -5,9 +5,10 @@
         </h2>
         <div class="news-grid" v-if="bookmarks.length">
             <NewsCard
-                v-for="article in bookmarks"
+                v-for="(article, index) in bookmarks"
                 :key="article.title"
                 :article="article"
+                :newsId="index"
             />
         </div>
         <div v-else class="no-news">

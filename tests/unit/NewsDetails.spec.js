@@ -2,6 +2,7 @@
 import { expect } from "chai";
 import { mount } from "@vue/test-utils";
 import NewsDetails from "@/components/NewsDetails.vue"; // Assuming your component path
+import store from "@/store";
 
 describe("NewsDetails.vue", () => {
     // Test case to check if the component renders correctly
@@ -10,47 +11,38 @@ describe("NewsDetails.vue", () => {
         expect(wrapper.exists()).to.be.true;
     });
 
-    // Test case to check if the component contains the "goto-card" class
     it('contains the "goto-card" class', () => {
         const wrapper = mount(NewsDetails);
         expect(wrapper.classes()).to.include("goto-card");
     });
 
     // // Test case to check if the component contains an image
-    // it("contains an image element", () => {
-    //     const wrapper = mount(NewsDetails);
-    //     expect(wrapper.find("img").exists()).to.be.true;
-    // });
-
-    // // Test case to check if the component renders article title
-    // it("renders the article title", () => {
+    it("contains an image element", () => {
+        const wrapper = mount(NewsDetails);
+        expect(wrapper.find("img").exists()).to.be.true;
+    });
+    // it("returns the article based on route params", () => {
     //     const wrapper = mount(NewsDetails, {
-    //         data() {
-    //             return {
-    //                 article: {
-    //                     title: "Test Article Title",
+    //         mocks: {
+    //             $route: {
+    //                 params: {
+    //                     newsId: "123",
     //                 },
-    //             };
+    //             },
+    //         },
+    //         global: {
+    //             plugins: [store],
     //         },
     //     });
-    //     expect(wrapper.find(".news-headline").text()).to.equal(
-    //         "Test Article Title"
-    //     );
-    // });
-
-    // // Test case to check if the component renders article content
-    // it("renders the article content", () => {
-    //     const wrapper = mount(NewsDetails, {
-    //         data() {
-    //             return {
-    //                 article: {
-    //                     content: "Test Article Content",
-    //                 },
-    //             };
-    //         },
+    //     wrapper.setData({
+    //         newsId: "0",
     //     });
-    //     expect(wrapper.find(".news-content p").text()).to.equal(
-    //         "Test Article Content"
-    //     );
+    //     console.log("(wrapper.vm.article", wrapper.vm.article);
+    //     expect(wrapper.vm.article).to.deep.equal({
+    //         /* mock article object */
+    //         title: "Substack’s moderation battle: all the latest news",
+    //         content:
+    //             "Filed under: ByEmma Roth, a news writer who covers the streaming wars, consumer tech, crypto, social media, and much more. Previously, she was a writer and editor at MUO. Since launching in 2017, … [+5808 chars]",
+    //     });
     // });
 });

@@ -78,10 +78,7 @@ const store = createStore({
                             isBookmarked: false,
                         })
                     );
-                    console.log(
-                        "articlesWithUUIDarticlesWithUUID",
-                        articlesWithUUID
-                    );
+
                     commit("setNewsList", articlesWithUUID);
                     commit("setTotalResults", res.data.totalResults);
                     commit("setLoading", false);
