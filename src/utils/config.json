@@ -74,7 +74,7 @@
           "fieldLabel":
             "Financial Services provider (adviser, mortgage broker, Loan consultant, debt recovery consultant, pension etc)",
           "value":
-            "Financial Services provider (adviser, mortgage broker, Loan consultant, debt recovery consultant, pension etc)",
+            "Financial Services provider (adviser, mortgage broker, Loan consultant, debt recovery consultant, pension etc)"
         },
         { "fieldLabel": "Food suppliers", "value": "Food suppliers" },
         { "fieldLabel": "Freelancer", "value": "Freelancer" },
@@ -101,7 +101,7 @@
           "fieldLabel":
             "Manufacturing (Auto, Car, Clothing, Electronics, Food Products, Furniture)",
           "value":
-            "Manufacturing (Auto, Car, Clothing, Electronics, Food Products, Furniture)",
+            "Manufacturing (Auto, Car, Clothing, Electronics, Food Products, Furniture)"
         },
         { "fieldLabel": "Media/Marketing", "value": "Media/Marketing" },
         { "fieldLabel": "Migration agent", "value": "Migration agent" },
@@ -136,63 +136,63 @@
         },
         {
           "fieldLabel": "Payrolls provider and payroll solution providers",
-          "value": "Payrolls provider and payroll solution providers",
+          "value": "Payrolls provider and payroll solution providers"
         },
         {
           "fieldLabel": "Pharmaceutical/Health Products & supplies",
-          "value": "Pharmaceutical/Health Products & supplies",
+          "value": "Pharmaceutical/Health Products & supplies"
         },
         { "fieldLabel": "Power/Energy Providers", "value": "Power/Energy Providers" },
         {
           "fieldLabel": "Real Estates/Property providers",
-          "value": "Real Estates/Property providers",
+          "value": "Real Estates/Property providers"
         },
       
         {
           "fieldLabel": "Recreation/Live Entertainment",
-          "value": "Recreation/Live Entertainment",
+          "value": "Recreation/Live Entertainment"
         },
         {
           "fieldLabel": "Recruiting firms, suppliers/providers",
-          "value": "Recruiting firms, suppliers/providers",
+          "value": "Recruiting firms, suppliers/providers"
         },
         { "fieldLabel": "Religious organisations", "value": "Religious organisations" },
         { "fieldLabel": "Securities & Investment", "value": "Securities & Investment" },
         { "fieldLabel": "Security firms", "value": "Security firms" },
         {
           "fieldLabel": "Superannuation funds providers",
-          "value": "Superannuation funds providers",
+          "value": "Superannuation funds providers"
         },
         { "fieldLabel": "Technology providers", "value": "Technology providers" },
         {
           "fieldLabel": "Telecommunication providers",
-          "value": "Telecommunication providers",
+          "value": "Telecommunication providers"
         },
         {
           "fieldLabel":
             "Tobacco suppliers/manufacturers (including e-cigarettes, vapours etc)",
           "value":
-            "Tobacco suppliers/manufacturers (including e-cigarettes, vapours etc)",
+            "Tobacco suppliers/manufacturers (including e-cigarettes, vapours etc)"
         },
         {
           "fieldLabel": "Travel & Tourism suppliers/providers",
-          "value": "Travel & Tourism suppliers/providers",
+          "value": "Travel & Tourism suppliers/providers"
         },
         { "fieldLabel": "Trust funds providers", "value": "Trust funds providers" },
         { "fieldLabel": "Undisclosed", "value": "Undisclosed" },
-        { "fieldLabel": "Universities/Colleges", "value": "Universities/Colleges" },
+        { "fieldLabel": "Universities/Colleges", "value": "Universities/Colleges" }
     ],
     "listedExchange":[
       { "fieldLabel": "Domestic Exchange", "value": "Domestic Exchange" },
       { "fieldLabel": "International Exchange", "value": "International Exchange" },
-      { "fieldLabel": "Not Listed", "value": "Not Listed" },
+      { "fieldLabel": "Not Listed", "value": "Not Listed" }
     ],
     "totalEmployees": [
       { "fieldLabel": "Less than or equal 5", "value": "Less than or equal 5" },
       { "fieldLabel": "Between 6 to 24", "value": "Between 6 to 24" },
       { "fieldLabel": "Between 25 to 49", "value": "Between 25 to 49" },
       { "fieldLabel": "Between 50 to 99", "value": "Between 50 to 99" },
-      { "fieldLabel": "More than 100", "value": "More than 100" },
+      { "fieldLabel": "More than 100", "value": "More than 100" }
     ],
       "unregulatedTrustType": [],
       "businessType":[
@@ -200,15 +200,16 @@
       { "fieldLabel": "Private Limited Company", "value": "Private Limited Company" },
       { "fieldLabel": "Public Company", "value": "Public Company" },
       { "fieldLabel": "Partnership", "value": "Partnership" },
+
       {
         "fieldLabel": "Limited Liability Partnership Firm",
-        "value": "Limited Liability Partnership Firm",
+        "value": "Limited Liability Partnership Firm"
       },
       { "fieldLabel": "Government Body", "value": "Government Body" },
       { "fieldLabel": "Associations", "value": "Associations" },
       { "fieldLabel": "Trust", "value": "Trust" },
       { "fieldLabel": "Regulated Trust", "value": "Regulated Trust" },
-      { "fieldLabel": "Unregulated Trust", "value": "Unregulated Trust" },
-    ];
+      { "fieldLabel": "Unregulated Trust", "value": "Unregulated Trust" }
+    ]
   }
 }

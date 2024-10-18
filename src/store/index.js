@@ -2,6 +2,18 @@ import { apiKey, newsUrl, topNewsUrl } from "@/constants";
 import { getCountryCode } from "@/helper";
 import axios from "axios";
 import { createStore } from "vuex";
+
+// Utility function for making API requests
+const fetchData = async (url) => {
+    try {
+        const res = await axios.get(url);
+        return res.data;
+    } catch (error) {
+        console.error("API Request Error:", error);
+        throw error;
+    }
+};
+
 const store = createStore({
     state() {
         return {
@@ -18,167 +30,101 @@ const store = createStore({
         };
     },
     mutations: {
-        setNewsList(state, data1) {
-            state.newsLists = data1;
+        setNewsList(state, articles) {
+            state.newsLists = articles;
         },
-        setTopNewsList(state, data1) {
-            state.topNewsList = data1;
+        setTopNewsList(state, articles) {
+            state.topNewsList = articles;
         },
-        setNewsDetails(state, data1) {
-            state.newsLists = data1;
+        setNewsDetails(state, article) {
+            state.newsDetails = article;
         },
-        setLoading(state, data1) {
-            state.loading = data1;
+        setLoading(state, isLoading) {
+            state.loading = isLoading;
         },
         setTotalResults(state, totalResults) {
             state.totalResults = totalResults;
         },
-
-        setPageSize(state, payload) {
-            state.pageSize = payload;
+        setPageSize(state, pageSize) {
+            state.pageSize = pageSize;
         },
-        addBookMarks: (state, article) => {
-            state.bookmarks.push(article);
-            localStorage.setItem(
-                "bookmarks",
-                JSON.stringify(state.bookmarks)
-            );
-        },
-        removeBookMarks: (state, article) => {
-            const index = state.bookmarks.findIndex(
-                (bookmark) => bookmark.id === article.id
-            );
-            if (index !== -1) {
-                state.bookmarks.splice(index, 1);
-                localStorage.setItem(
-                    "bookmarks",
-                    JSON.stringify(state.bookmarks)
-                );
-            }
-        },
-        setBookMarks: (state, bookmarks) => {
+        setBookMarks(state, bookmarks) {
             state.bookmarks = bookmarks;
+        },
+        addBookMark(state, article) {
+            state.bookmarks.push(article);
+            updateLocalStorageBookmarks(state.bookmarks);
+        },
+        removeBookMark(state, articleId) {
+            state.bookmarks = state.bookmarks.filter(
+                (bookmark) => bookmark.id !== articleId
+            );
+            updateLocalStorageBookmarks(state.bookmarks);
         },
     },
     actions: {
-        async updatePageSize({ commit }, payload) {
-            commit("setPageSize", payload);
+        async updatePageSize({ commit }, pageSize) {
+            commit("setPageSize", pageSize);
         },
-        async fetchAllData({ commit }, payload) {
+        async fetchAllData({ commit, state }, { searchQuery = "", searchCountry = "", searchCategory = "" } = {}) {
             commit("setLoading", true);
-            if (!payload) {
-                try {
-                    const res = await axios.get(
-                        `${newsUrl}?q=all&pageSize=${this.state.pageSize}&apiKey=${apiKey}`
-                    );
-                    const articlesWithUUID = res.data.articles.map(
-                        (article, index) => ({
-                            ...article,
-                            id: index,
-                            isBookmarked: false,
-                        })
-                    );
+            const countryCode = getCountryCode(searchCountry);
+            const url = searchQuery || searchCountry || searchCategory 
+                ? `${topNewsUrl}?country=${countryCode}&category=${searchCategory}&q=${searchQuery}&apiKey=${apiKey}`
+                : `${newsUrl}?q=all&pageSize=${state.pageSize}&apiKey=${apiKey}`;
 
-                    commit("setNewsList", articlesWithUUID);
-                    commit("setTotalResults", res.data.totalResults);
-                    commit("setLoading", false);
-                } catch (error) {
-                    commit("setLoading", false);
-                }
-            } else {
-                const { searchQuery, searchCountry, searchCategory } =
-                    payload;
-                if (
-                    searchQuery !== "" ||
-                    searchCategory !== "" ||
-                    searchCountry !== ""
-                ) {
-                    let countryCode = getCountryCode(searchCountry);
-                    const url = `${topNewsUrl}?country=${countryCode}&category=${searchCategory}&q=${searchQuery}&apiKey=${apiKey}`;
-                    try {
-                        const res = await axios.get(url);
-                        const articlesWithUUID =
-                            res.data.articles.map(
-                                (article, index) => ({
-                                    ...article,
-                                    id: index,
-                                })
-                            );
-                        commit("setNewsList", articlesWithUUID);
-                        commit(
-                            "setTotalResults",
-                            res.data.totalResults
-                        );
-                        commit("setLoading", false);
-                    } catch (error) {
-                        commit("setLoading", false);
-                    }
-                }
-            }
-        },
-        fetchBookMarks({ commit }, bookMarks) {
-            commit("setBookMarks", bookMarks);
-        },
-        async fetchTopHeading({ commit }) {
-            const res = await axios.get(
-                `${topNewsUrl}?country=in&category=business&apiKey=${apiKey}`
-            );
-            commit("setLoading", false);
-            const articlesWithUUID = res.data.articles.map(
-                (article, index) => ({
+            try {
+                const data = await fetchData(url);
+                const articlesWithUUID = data.articles.map((article, index) => ({
                     ...article,
                     id: index,
-                })
-            );
-            commit("setTotalResults", res.data.totalResults);
-            commit("setNewsList", articlesWithUUID);
-            if (res.data.articles.length === 0) {
-                commit("setErrorMessage", "");
+                    isBookmarked: false,
+                }));
+                commit("setNewsList", articlesWithUUID);
+                commit("setTotalResults", data.totalResults);
+            } finally {
+                commit("setLoading", false);
+            }
+        },
+        async fetchTopHeading({ commit }) {
+            commit("setLoading", true);
+            try {
+                const data = await fetchData(`${topNewsUrl}?country=in&category=business&apiKey=${apiKey}`);
+                const articlesWithUUID = data.articles.map((article, index) => ({
+                    ...article,
+                    id: index,
+                }));
+                commit("setTopNewsList", articlesWithUUID);
+                commit("setTotalResults", data.totalResults);
+            } finally {
+                commit("setLoading", false);
             }
         },
         toggleBookmarkArticle({ commit, getters }, article) {
             if (getters.isArticleBookmarked(article)) {
-                commit("removeBookMarks", article);
+                commit("removeBookMark", article.id);
             } else {
-                commit("addBookMarks", article);
+                commit("addBookMark", article);
             }
         },
         loadBookmarks({ commit }) {
-            const bookmarks =
-                JSON.parse(localStorage.getItem("bookmarks")) || [];
+            const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
             commit("setBookMarks", bookmarks);
         },
     },
     getters: {
-        getNewsList: (state) => {
-            return state.newsLists;
-        },
-        isArticleBookmarked: (state) => (article) => {
-            return state.bookmarks.some(
-                (bookmark) => bookmark.id === article.id
-            );
-        },
-        getBookmarks: (state) => {
-            return state.bookmarks;
-        },
-        getTopNewsList: (state) => {
-            return state.topNewsList;
-        },
-        getPageCount(state) {
-            return state.pageSize;
-        },
-        getArticlesById: (state) => (id) => {
-            let result = state.newsLists?.filter((article) => {
-                return article.id === +id;
-            });
-            console.log("resultresult", result[0]);
-
-            return result[0];
-        },
-        getTotalResults(state) {
-            return state.totalResults;
-        },
+        getNewsList: (state) => state.newsLists,
+        isArticleBookmarked: (state) => (article) => state.bookmarks.some((bookmark) => bookmark.id === article.id),
+        getBookmarks: (state) => state.bookmarks,
+        getTopNewsList: (state) => state.topNewsList,
+        getPageSize: (state) => state.pageSize,
+        getArticlesById: (state) => (id) => state.newsLists.find((article) => article.id === +id),
+        getTotalResults: (state) => state.totalResults,
     },
 });
+
+const updateLocalStorageBookmarks = (bookmarks) => {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+};
 
 export default store;
