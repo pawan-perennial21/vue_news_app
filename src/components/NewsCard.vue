@@ -67,7 +67,8 @@ export default {
       });
     },
     toggleIcons() {
-      this.toggleBookmarkArticle(this.article);
+      const finalArtical = {...this.article,id:this.newsId}
+      this.toggleBookmarkArticle(finalArtical);
       this.isBookmark = !this.isBookmark;
     },
     debouncedToggleBookmark: debounce(function () {

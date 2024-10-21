@@ -49,9 +49,11 @@ const store = createStore({
             state.pageSize = pageSize;
         },
         setBookMarks(state, bookmarks) {
+            console.log({ bookmarks });
             state.bookmarks = bookmarks;
         },
         addBookMark(state, article) {
+            console.log({ article });
             state.bookmarks.push(article);
             updateLocalStorageBookmarks(state.bookmarks);
         },
