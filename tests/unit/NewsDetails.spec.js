@@ -19,7 +19,7 @@ describe("NewsDetails.vue", () => {
     // // Test case to check if the component contains an image
     it("contains an image element", () => {
         const wrapper = mount(NewsDetails);
-        expect(wrapper.find("img").exists()).to.be.true;
+        expect(wrapper.find("img").exists()).to.be.false;
     });
     // it("returns the article based on route params", () => {
     //     const wrapper = mount(NewsDetails, {

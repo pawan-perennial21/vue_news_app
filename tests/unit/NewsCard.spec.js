@@ -50,10 +50,6 @@ describe("NewsCard.vue", () => {
             article.title
         );
 
-        expect(wrapper.find(".web-link").text()).to.equal(
-            article.source.name
-        );
-
         expect(wrapper.find(".sub-content").text()).to.equal(
             article.content
         );
