@@ -11,8 +11,8 @@
         />
       </div>
       <div class="news-content">
-        <h3 class="news-headline">{{ article?.title }}</h3>
-        <p>{{ article?.content }}</p>
+        <h3 class="news-headline">{{ article?.title === "[Removed]" ? "Lorem Ipsum is simply dummy text of the printing and typesetting industry." : article?.title }}</h3>
+    <p class="sub-content">{{ article?.content === "[Removed]" ? "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." : article?.content }}</p>
       </div>
     </div>
   </div>
@@ -60,7 +60,7 @@ export default {
   background-color: #fff;
   display: flex;
   padding: 0px;
-  width: 700px;
+  width: 800px;
   margin: auto;
   margin-top: 50px;
 }

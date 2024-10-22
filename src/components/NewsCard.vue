@@ -9,9 +9,9 @@
       />
     </div>
     <div class="news-content">
-      <h3 class="news-headline">{{ article?.title }}</h3>
-      <h4 class="web-link">{{ getWebsiteLink(article?.website) }}</h4>
-      <p class="sub-content">{{ article?.content }}</p>
+      <h3 class="news-headline">{{ article?.title === "[Removed]" ? "Lorem Ipsum is simply dummy text of the printing and typesetting industry." : article?.title }}</h3>
+      <h4 class="web-link">{{ getWebsiteLink(article?.website || article?.url) }}</h4>
+      <p class="sub-content">{{ article?.content === "[Removed]" ? "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." : article?.content }}</p>
     </div>
     <div class="publish-date">
       <p>Published: {{ formatArticleDate(article?.publishedAt) }}</p>
