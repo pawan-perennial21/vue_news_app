@@ -34,7 +34,6 @@ export default {
     methods: {
         ...mapActions(["toggleBookmarkArticle"]),
         removeBookmark(article) {
-            // Toggle the bookmark status to remove it from bookmarks
             this.toggleBookmarkArticle(article);
         },
     },

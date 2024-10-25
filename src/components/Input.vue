@@ -10,17 +10,17 @@
 <script>
 export default {
     props: {
-        value: String, // Value passed to the input
+        value: String,
         placeholder: String,
     },
     data() {
         return {
-            inputValue: this.value, // Local data for input value
+            inputValue: this.value,
         };
     },
     methods: {
         emitInput() {
-            this.$emit("input", this.inputValue); // Emit input event with updated value
+            this.$emit("input", this.inputValue);
         },
     },
 };
