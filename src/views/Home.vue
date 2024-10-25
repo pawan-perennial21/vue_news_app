@@ -2,11 +2,11 @@
     <Header />
     <NoRecord v-if="getNewsList?.length === 0" />
     <div class="all-result">
-        <p>All Results: {{ totalResults }}</p>
+        <h3>All Results: {{ totalResults }}</h3>
     </div>
     <div class="news-list">
         <NewsCard
-            v-for="(article, index) in newsList"
+            v-for="(article, index) in articles"
             :key="article.title"
             :article="article"
             :newsId="index"
@@ -32,8 +32,11 @@ export default {
         ...mapGetters([
             "getNewsList",
             "getTotalResults",
-            "getPageCount",
+            "getPageSize",
         ]),
+        articles() {
+            return this.newsList?.slice(0, this.getPageSize);
+        },
         totalResults() {
             return this.getTotalResults;
         },
@@ -77,14 +80,10 @@ export default {
                             window.innerHeight
                     ) >= document.documentElement.offsetHeight;
                 if (bottomOfWindow) {
-                    const currentpage = this.getPageCount + 21;
+                    const currentpage = this.getPageSize + 6;
                     this.$store.dispatch(
                         "updatePageSize",
                         currentpage
-                    );
-                    this.$store.dispatch(
-                        "fetchAllData",
-                        this.extraParams
                     );
                 }
             };
@@ -100,10 +99,19 @@ export default {
 <style>
 .news-list {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
+    margin: 0 30px;
     justify-items: center;
     padding-bottom: 60px;
+}
+
+.all-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 130px;
+    margin-bottom: 10px;
 }
 @media (max-width: 1400px) {
     .news-list {
@@ -112,9 +120,12 @@ export default {
         grid-gap: 20px;
         justify-items: center;
     }
+    .all-result {
+        margin-top: 130px;
+    }
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
     .news-list {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -123,24 +134,28 @@ export default {
     }
 }
 
+@media (max-width: 768px) {
+    .all-result {
+        margin-top: 130px;
+    }
+}
+
 @media (max-width: 698px) {
     .news-list {
         display: grid;
         grid-template-columns: 1fr;
         grid-gap: 20px;
+        margin: 0 15px;
         justify-items: center;
     }
-}
-.all-result {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 130px;
-    margin-bottom: 10px;
-}
-@media (max-width: 768px) {
     .all-result {
-        margin-top: 240px;
+        margin-top: 280px;
+    }
+}
+
+@media (max-width: 319px) {
+    .all-result {
+        margin-top: 300px;
     }
 }
 </style>

@@ -26,7 +26,12 @@ export default {
 .header {
     position: fixed;
     width: 100%;
-    top: 38px;
+    top: 40px;
     left: 0px;
+    @media only screen and (max-width: 320px) {
+        top: 58px;
+
+    }
+   
 }
 </style>

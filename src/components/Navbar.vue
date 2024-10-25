@@ -1,11 +1,16 @@
 <template>
     <nav class="navbar">
         <div class="logo">
-            <p @click="redirectToHomePage">News App</p>
+            <p @click="handleTopNews">News App</p>
         </div>
         <div class="navbar-content">
-            <p @click="handleTopNews">Top News</p>
-            <router-link class="link" to="/bookmarks"
+            <router-link to="/" class="link" @click="handleTopNews">
+                Top News
+            </router-link>
+            <router-link
+                class="link"
+                to="/bookmarks"
+                @click="handleBookmarks"
                 >Bookmarks</router-link
             >
         </div>
@@ -16,12 +21,14 @@
 export default {
     name: "Navbar",
     methods: {
-        redirectToHomePage() {
-            this.$router.push("/");
-            this.$store.dispatch("fetchAllData");
-        },
         handleTopNews() {
-            this.$store.dispatch("fetchTopHeading");
+            this.$router.push("/");
+        },
+        handleBookmarks() {
+            this.isActiveTopNews = false; // Deactivate "Top News" when Bookmarks is active
+        },
+        isActive(route) {
+            return this.$route.path === route;
         },
     },
 };
@@ -39,6 +46,7 @@ export default {
     padding: 10px 30px;
     background: #053b50;
     color: #ffffff;
+    border: 1px solid #053b50;
 }
 .logo > p {
     cursor: pointer;
@@ -50,9 +58,15 @@ export default {
 .link {
     text-decoration: none;
     color: #ffffff;
-    margin-left: 10px;
+}
+.link:nth-child(1) {
+    margin-right: 20px;
 }
 .navbar-content > p {
     cursor: pointer;
+    margin-right: 25px;
+}
+.router-link-exact-active {
+    color: #ffd700;
 }
 </style>

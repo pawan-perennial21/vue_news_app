@@ -1,8 +1,8 @@
 <template>
     <div class="page-container">
-        <h2 class="page-header">
+        <h3 class="page-header">
             {{ bookmarks.length }} News Result(s)
-        </h2>
+        </h3>
         <div class="news-grid" v-if="bookmarks.length">
             <NewsCard
                 v-for="(article) in bookmarks"
@@ -38,14 +38,19 @@ export default {
             this.toggleBookmarkArticle(article);
         },
     },
+
 };
 </script>
 
 <style scoped>
 .page-header {
     text-align: center;
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 20px;
+    @media (max-width: 319px) {
+        padding-top: 80px;
+
+    }
 }
 
 .no-news {
@@ -63,10 +68,11 @@ export default {
 
 .news-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
     justify-items: center;
     padding-bottom: 60px;
+    margin: 0 30px;
 }
 
 .news-card {
@@ -79,6 +85,7 @@ export default {
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 20px;
         justify-items: center;
+        margin: 0 30px;
     }
 }
 
@@ -87,6 +94,7 @@ export default {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: 20px;
+        margin: 0 20px;
         justify-items: center;
     }
 }
@@ -96,6 +104,7 @@ export default {
         display: grid;
         grid-template-columns: 1fr;
         grid-gap: 20px;
+        margin: 0 15px;
         justify-items: center;
     }
 }

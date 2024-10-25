@@ -90,7 +90,7 @@ export default {
             ) {
                 this.$store.dispatch("fetchAllData");
             } else {
-                this.$store.dispatch("updatePageSize", 21);
+                this.$store.dispatch("updatePageSize", 6);
                 this.$emit("getSearchParams", payload);
             }
         },
@@ -128,6 +128,9 @@ input {
     outline: none;
     border-radius: 8px;
 }
+select{
+     border-right: 8px solid transparent
+}
 
 .search-btn {
     display: flex;
@@ -150,7 +153,7 @@ input {
     border-radius: 8px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 698px) {
     .search-conatiner {
         display: flex;
         flex-direction: column;

@@ -3,7 +3,6 @@ import { getCountryCode } from "@/helper";
 import axios from "axios";
 import { createStore } from "vuex";
 
-// Utility function for making API requests
 const fetchData = async (url) => {
     try {
         const res = await axios.get(url);
@@ -20,10 +19,9 @@ const store = createStore({
             loading: false,
             newsLists: [],
             bookmarks: [],
-            topNewsList: [],
             newsDetails: {},
             totalResults: 0,
-            pageSize: 21,
+            pageSize: 6,
             selectedCountry: "",
             selectedCategory: "",
             textInputMessage: "",
@@ -32,9 +30,6 @@ const store = createStore({
     mutations: {
         setNewsList(state, articles) {
             state.newsLists = articles;
-        },
-        setTopNewsList(state, articles) {
-            state.topNewsList = articles;
         },
         setNewsDetails(state, article) {
             state.newsDetails = article;
@@ -49,11 +44,9 @@ const store = createStore({
             state.pageSize = pageSize;
         },
         setBookMarks(state, bookmarks) {
-            console.log({ bookmarks });
             state.bookmarks = bookmarks;
         },
         addBookMark(state, article) {
-            console.log({ article });
             state.bookmarks.push(article);
             updateLocalStorageBookmarks(state.bookmarks);
         },
@@ -73,7 +66,7 @@ const store = createStore({
             const countryCode = getCountryCode(searchCountry);
             const url = searchQuery || searchCountry || searchCategory 
                 ? `${topNewsUrl}?country=${countryCode}&category=${searchCategory}&q=${searchQuery}&apiKey=${apiKey}`
-                : `${newsUrl}?q=all&pageSize=${state.pageSize}&apiKey=${apiKey}`;
+                : `${newsUrl}?q=all&apiKey=${apiKey}`;
 
             try {
                 const data = await fetchData(url);
@@ -83,21 +76,7 @@ const store = createStore({
                     isBookmarked: false,
                 }));
                 commit("setNewsList", articlesWithUUID);
-                commit("setTotalResults", data.totalResults);
-            } finally {
-                commit("setLoading", false);
-            }
-        },
-        async fetchTopHeading({ commit }) {
-            commit("setLoading", true);
-            try {
-                const data = await fetchData(`${topNewsUrl}?country=in&category=business&apiKey=${apiKey}`);
-                const articlesWithUUID = data.articles.map((article, index) => ({
-                    ...article,
-                    id: index,
-                }));
-                commit("setTopNewsList", articlesWithUUID);
-                commit("setTotalResults", data.totalResults);
+                commit("setTotalResults", data.articles.length);
             } finally {
                 commit("setLoading", false);
             }
@@ -118,7 +97,6 @@ const store = createStore({
         getNewsList: (state) => state.newsLists,
         isArticleBookmarked: (state) => (article) => state.bookmarks.some((bookmark) => bookmark.id === article.id),
         getBookmarks: (state) => state.bookmarks,
-        getTopNewsList: (state) => state.topNewsList,
         getPageSize: (state) => state.pageSize,
         getArticlesById: (state) => (id) => state.newsLists.find((article) => article.id === +id),
         getTotalResults: (state) => state.totalResults,

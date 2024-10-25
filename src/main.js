@@ -5,5 +5,6 @@ import router from "./router";
 const app = createApp(App);
 app.use(store);
 store.dispatch("loadBookmarks");
+store.dispatch("loadTopNewsList");
 app.use(router);
 app.mount("#app");
