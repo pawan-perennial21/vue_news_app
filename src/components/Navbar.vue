@@ -23,6 +23,7 @@ export default {
     methods: {
         handleTopNews() {
             this.$router.push("/");
+            this.$store.dispatch("fetchAllData");
         },
         handleBookmarks() {
             this.isActiveTopNews = false; // Deactivate "Top News" when Bookmarks is active
