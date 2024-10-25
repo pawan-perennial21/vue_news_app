@@ -99,6 +99,7 @@ export default {
                 (this.SearchCountry = ""),
                 (this.SearchCategory = "");
             this.$store.dispatch("fetchAllData");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         },
     },
 };

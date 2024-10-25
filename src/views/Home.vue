@@ -119,13 +119,14 @@ export default {
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 20px;
         justify-items: center;
+        margin: 0 30px;
     }
     .all-result {
         margin-top: 130px;
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (max-width: 1024px) {
     .news-list {
         display: grid;
         grid-template-columns: 1fr 1fr;

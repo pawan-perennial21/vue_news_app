@@ -23,10 +23,11 @@ export default {
     methods: {
         handleTopNews() {
             this.$router.push("/");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             this.$store.dispatch("fetchAllData");
         },
         handleBookmarks() {
-            this.isActiveTopNews = false; // Deactivate "Top News" when Bookmarks is active
+            this.isActiveTopNews = false;
         },
         isActive(route) {
             return this.$route.path === route;

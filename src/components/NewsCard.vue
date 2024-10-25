@@ -3,18 +3,18 @@
     <div class="news-img">
       <img
         class="news-image"
-        :src="getNewsImg(article?.urlToImage)"
+        :src="getNewsImg(articleData.urlToImage)"
         alt="News Image"
         loading="lazy"
       />
     </div>
     <div class="news-content">
-      <h3 class="news-headline">{{ article?.title === "[Removed]" ? "Lorem Ipsum is simply dummy text of the printing and typesetting industry." : article?.title }}</h3>
-      <h4 class="web-link">{{ getWebsiteLink(article?.website || article?.url) }}</h4>
-      <p class="sub-content">{{ article?.content === "[Removed]" ? "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." : article?.content }}</p>
+      <h3 class="news-headline">{{ articleData.title }}</h3>
+      <h4 class="web-link">{{ getWebsiteLink(articleData.website || articleData.url) }}</h4>
+      <p class="sub-content">{{ articleData.content }}</p>
     </div>
     <div class="publish-date">
-      <p>Published: {{ formatArticleDate(article?.publishedAt) }}</p>
+      <p>Published: {{ formatArticleDate(articleData.publishedAt) }}</p>
     </div>
     <div class="news-footer">
       <button class="go-btn" @click="goToPage">Go Page</button>
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { getPublishDate } from "@/helper";
 import { mapActions } from "vuex";
 import bookmarkIcon from "../assets/bookmark-white.png";
@@ -47,8 +46,31 @@ export default {
     };
   },
   props: {
-    article: Object,
+    article: {
+      type: Object,
+      default: () => ({
+        title: "[Removed]",
+        content: "[Removed]",
+        urlToImage: null,
+        publishedAt: null,
+      }),
+    },
     newsId: Number,
+  },
+  computed: {
+    articleData() {
+      return {
+        ...this.article,
+        title:
+          this.article?.title === "[Removed]"
+            ? "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            : this.article?.title,
+        content:
+          this.article?.content === "[Removed]"
+            ? "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+            : this.article?.content,
+      };
+    },
   },
   mounted() {
     this.isBookmark = this.$store.getters.isArticleBookmarked(this.article);
@@ -67,7 +89,7 @@ export default {
       });
     },
     toggleIcons() {
-      const finalArtical = {...this.article,id:this.newsId}
+      const finalArtical = { ...this.article, id: this.newsId };
       this.toggleBookmarkArticle(finalArtical);
       this.isBookmark = !this.isBookmark;
     },
@@ -140,4 +162,3 @@ export default {
   }
 }
 </style>
-
